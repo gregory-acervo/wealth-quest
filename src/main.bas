@@ -1,45 +1,104 @@
-DIM opcoes$(3) 'DIM cria um array e opcoes$(3) é um array de strings com 3 elementos'
-opcoes$(0) = "Novo Jogo"
-opcoes$(1) = "Carregar Jogo"
-opcoes$(2) = "Opções"
-opcoes$(3) = "Sair"
+'=========================================
+' WEALTHY-QUEST
+' Text RPG
+'=========================================
 
-sel = 0 'Variável para armazenar a opção selecionada | Inicializada em 0 para selecionar a primeira opção do menu.'
+DECLARE SUB MenuPrincipal()
+DECLARE SUB Introducao()
+DECLARE SUB TelaCheia()
 
-DO 'Loop para exibir o menu e capturar a seleção do usuário.'
-  CLS 'Clean Screen'
-  PRINT "========================================"
-  PRINT "              WEALTH QUEST              "
-  PRINT "========================================"
-  PRINT
+CLS
+CALL TelaCheia
+CALL MenuPrincipal
+END
 
-  FOR i = 0 TO 3
-    IF i = sel THEN PRINT "> "; opcoes$(i) 'Se o i igual à opção selecionada, exibe com ">" na frente.'
-        ELSE PRINT "  "; opcoes$(i) 'Se não, exibe normalmente.'
-  NEXT i 'Loop para exibir as opções do menu.'
+'=========================================
+' TELA CHEIA
+'=========================================
+SUB TelaCheia
+    _FULLSCREEN
+END SUB
 
-  k$ = INKEY$ 'k$ é uma variável string e o INKEY$ é uma função para captar a tecla pressionada.'
-  IF k$ = CHR$(0) THEN ''
-    c = ASC(INKEY$)   ' código da seta
-    IF c = 72 THEN sel = sel - 1
-    IF c = 80 THEN sel = sel + 1
-  ELSE
-    IF ASC(k$) = 13 THEN EXIT DO   ' Enter
-    n = ASC(k$) - 48
-    IF n >= 1 AND n <= 4 THEN sel = n
-  END IF
+'=========================================
+' MAIN MENU
+'=========================================
+SUB MenuPrincipal
 
-  IF sel < 1 THEN sel = 4
-  IF sel > 4 THEN sel = 1
-LOOP
+    DIM opcao AS STRING
 
-SELECT CASE sel
-CASE 1
-  PRINT "Novo jogo..."
-CASE 2
-  PRINT "Carregar jogo..."
-CASE 3
-  PRINT "Opções..."
-CASE 4
-  END
-END SELECT
+    DO
+        CLS
+
+        PRINT "==============================================="
+        PRINT "               WEALTHY-QUEST"
+        PRINT "==============================================="
+        PRINT
+        PRINT "              1 - START"
+        PRINT "              2 - EXIT"
+        PRINT
+        PRINT "==============================================="
+        INPUT "Choose an option: ", opcao
+
+        IF opcao = "1" THEN
+            CALL Introducao
+            EXIT DO
+        ELSEIF opcao = "2" THEN
+            CLS
+            PRINT
+            PRINT "Thank you for playing Wealthy-Quest!"
+            PRINT
+            END
+        END IF
+
+    LOOP
+
+END SUB
+
+'=========================================
+' INTRODUCTION
+'=========================================
+SUB Introducao
+
+    WIDTH 80, 50
+    CLS
+
+    PRINT "==============================================="
+    PRINT
+    PRINT
+    PRINT "              WEALTHY-QUEST"
+    PRINT
+    PRINT
+    PRINT "==============================================="
+    PRINT
+    PRINT "You are a student at UDESC - CESMO."
+    PRINT
+    PRINT "After earning a place at the university,"
+    PRINT "you had to leave your hometown and move"
+    PRINT "to Ca" + CHR$(135) + "ador, Santa Catarina."
+    PRINT
+    PRINT "With limited financial resources, you rented"
+    PRINT "a small apartment near the campus to reduce"
+    PRINT "your living expenses."
+    PRINT
+    PRINT "Besides attending classes, you also secured"
+    PRINT "an internship at the UDESC - CESMO"
+    PRINT "Administrative Center, where you learn about"
+    PRINT "organization, responsibility, and teamwork."
+    PRINT
+    PRINT "Although you are grateful for this opportunity,"
+    PRINT "you know you want to achieve even more."
+    PRINT
+    PRINT "Determined to build a better future, you decide"
+    PRINT "to begin a new adventure in the world of finance,"
+    PRINT "learning how to manage money, invest wisely,"
+    PRINT "and make smart financial decisions."
+    PRINT
+    PRINT "Your journey is just beginning..."
+    PRINT
+    PRINT
+    PRINT ">>> PRESS ANY KEY TO CONTINUE <<<"
+
+    DO: LOOP UNTIL INKEY$ <> ""
+    DO: LOOP WHILE INKEY$ <> ""
+
+END SUB
